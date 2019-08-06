@@ -352,6 +352,8 @@ export default Base =>
 
     filterData (data, filtered, defaultFilterMethod, allVisibleColumns) {
       let filteredData = data
+      const onFilterUpdateLength = this.props.onFilterUpdateLength
+
 
       if (filtered.length) {
         filteredData = filtered.reduce((filteredSoFar, nextFilter) => {
@@ -395,7 +397,9 @@ export default Base =>
             return row[this.props.subRowsKey].length > 0
           })
       }
-
+      if (onFilterUpdateLength) {
+        onFilterUpdateLength(filteredData.length)
+      }
       return filteredData
     }
 
